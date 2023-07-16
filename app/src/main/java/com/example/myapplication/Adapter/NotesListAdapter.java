@@ -31,12 +31,16 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
         this.listener = listener;
     }
 
+
+    //
     @NonNull
     @Override
     public NotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NotesViewHolder(LayoutInflater.from(context).inflate(R.layout.notes_list, parent, false));
     }
 
+
+    //
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
 
@@ -75,6 +79,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
 
 
 
+    //
     private int getRandomColor(){  //необходимо найти как создать массив из xml файла и добавить его сюда или другой способ выбрать рандомный цвет из colors.xml
         List<Integer> colorCode = new ArrayList<>();
         colorCode.add(R.color.LemonChiffon);
@@ -84,10 +89,11 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
 
         Random random = new Random();
         int random_color = random.nextInt(colorCode.size());
-
-        return random_color;
+        return colorCode.get(random_color);
     }
 
+
+    //
     @Override
     public int getItemCount() {
         return list.size();
@@ -96,6 +102,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
 
 class NotesViewHolder extends RecyclerView.ViewHolder {
 
+    //объявляем объекты которые мы добавили в файл
     CardView notes_container;
     TextView textView_title;
     TextView textView_notes;
@@ -103,7 +110,7 @@ class NotesViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView_pin;
 
 
-    public NotesViewHolder(@NonNull View itemView) {
+    public NotesViewHolder(@NonNull View itemView) { //связываем объявленные объекты с теми что есть в notes_list.xml
         super(itemView);
         notes_container = itemView.findViewById(R.id.notes_container);
         textView_title = itemView.findViewById(R.id.textView_title);

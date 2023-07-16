@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.myapplication.Models.Notes;
 
@@ -21,6 +20,7 @@ public class NotesTakerActivity extends AppCompatActivity {
     EditText editText_notes;
     ImageView imageView_save;
     Notes notes;
+    boolean isOldNote = false;
 
 
     @Override
@@ -32,6 +32,18 @@ public class NotesTakerActivity extends AppCompatActivity {
         editText_notes = findViewById(R.id.editText_notes);
 
         imageView_save = findViewById(R.id.imageView_save);
+
+        notes = new Notes();
+        try {
+            notes = (Notes) getIntent().getSerializableExtra("old_notes"); //(...) - каст
+            editText_title.setText(notes.getTitle());
+            editText_notes.setText(notes.getNote());
+            isOldNote = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
         imageView_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +56,10 @@ public class NotesTakerActivity extends AppCompatActivity {
                 }
                 SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
                 Date date = new Date();
-                notes = new Notes();
+
+                if(!isOldNote){
+                    notes = new Notes();
+                }
                 notes.setTitle(title);
                 notes.setNote(description);
                 notes.setDate(format.format(date));
