@@ -8,15 +8,16 @@ import androidx.room.RoomDatabase;
 
 import com.example.myapplication.Models.Notes;
 
-@Database(entities = Notes.class, version = 1, exportSchema = false)
+@Database(entities = {Notes.class}, version = 1, exportSchema = false)
 public abstract class RoomDB extends RoomDatabase {
 
     public abstract DAO dao();
+
     private static volatile RoomDB database;//static - говорит о том, что все методы и переменные принадлежат классу и обращаться к ним можно только через класс и в классе
     final private static String DataBase_Name = "NotesApp";
 
-    public synchronized static RoomDB getInstance(Context context){//public - доступен в коде за пределами свего класса; synchronized - ключевое слово синхронизирующее действие потоков;
-        if (database == null){ // проверяем есть ли уже созданная БД
+    public synchronized static RoomDB getInstance(Context context) {//public - доступен в коде за пределами свего класса; synchronized - ключевое слово синхронизирующее действие потоков;
+        if (database == null) { // проверяем есть ли уже созданная БД
             database = Room.databaseBuilder(context.getApplicationContext(), RoomDB.class, DataBase_Name) //создаем бд если БД не создана
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()

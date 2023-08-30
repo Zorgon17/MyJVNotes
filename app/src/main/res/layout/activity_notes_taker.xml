@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/Background"
     android:orientation="vertical"
-    tools:context=".NotesTakerActivity">
+    tools:context=".Activity.NotesTakerActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_notes"
         app:title="@string/app_name"
-        app:titleTextColor="@color/white"
+        app:titleTextColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
@@ -35,11 +35,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title: "
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:padding="8dp"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/black"
         android:singleLine="true"/>
 
     <EditText
@@ -47,10 +47,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter text"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:padding="8dp"
         android:textStyle="normal"
         android:textSize="16sp"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/black"/>
 
 </LinearLayout>

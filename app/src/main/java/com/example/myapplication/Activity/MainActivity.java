@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,12 +19,13 @@ import com.example.myapplication.Adapter.NotesListAdapter;
 import com.example.myapplication.DataBase.RoomDB;
 import com.example.myapplication.Models.Notes;
 import com.example.myapplication.Models.NotesClickListener;
+import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     RecyclerView recyclerView;
     FloatingActionButton fab_add;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         database = RoomDB.getInstance(this);
         notes = database.dao().getAll();
 
+        updateRecycler(notes);
+
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,12 +55,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 101){
-            if (resultCode == Activity.RESULT_OK);
+        if (requestCode == 101) {
+            if (resultCode == Activity.RESULT_OK) ;
             Notes new_notes = (Notes) data.getSerializableExtra("note");
             database.dao().insert(new_notes); //записываем данные в бд
             notes.clear();
@@ -65,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             notesListAdapter.notifyDataSetChanged();
         }
 
-        if(requestCode == 102){
-            if (resultCode == Activity.RESULT_OK);
+        if (requestCode == 102) {
+            if (resultCode == Activity.RESULT_OK) ;
             Notes new_notes = (Notes) data.getSerializableExtra("note");
-            database.dao().update(new_notes.getID(),new_notes.getTitle(),new_notes.getNote()); //записываем данные в бд
+            database.dao().update(new_notes.getID(), new_notes.getTitle(), new_notes.getNote()); //выбираем данные из бд
             notes.clear();
             notes.addAll(database.dao().getAll());
             notesListAdapter.notifyDataSetChanged();
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void updateRecycler(List<Notes> notes){
+    private void updateRecycler(List<Notes> notes) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
         notesListAdapter = new NotesListAdapter(MainActivity.this, notes, notesClickListener);
@@ -84,10 +88,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-
     private final NotesClickListener notesClickListener = new NotesClickListener() {
         @Override
-        public void onClick(Notes notes) {
+        public void onClick(Notes notes) { // переход при нажатии
             Intent intent = new Intent(MainActivity.this, NotesTakerActivity.class);
             intent.putExtra("old_notes", notes);
             startActivityForResult(intent, 102);
@@ -95,10 +98,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         @Override
         public void onLongClick(Notes notes, CardView cardView) {
-
             selectedNote = new Notes();
             selectedNote = notes;
-            showPopUp (cardView);
+            showPopUp(cardView); //показать всплывающее окно
         }
     };
 
@@ -112,13 +114,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.pin:
-                if (selectedNote.getPinned()){
-                    database.dao().pin(selectedNote.getID(),false);
+                if (selectedNote.getPinned()) {
+                    database.dao().pin(selectedNote.getID(), false);
                     Toast.makeText(MainActivity.this, "unpinned", Toast.LENGTH_SHORT).show();
-                }else{
-                    database.dao().pin(selectedNote.getID(),true);
+                } else {
+                    database.dao().pin(selectedNote.getID(), true);
                     Toast.makeText(MainActivity.this, "pinned", Toast.LENGTH_SHORT).show();
                 }
                 notes.clear();

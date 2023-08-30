@@ -6,22 +6,22 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity (tableName = "notes")
+@Entity(tableName = "notes")
 public class Notes implements Serializable {
 
-    @PrimaryKey (autoGenerate = true) //автоматически присваивает новое значение для ID
+    @PrimaryKey(autoGenerate = true) //автоматически присваивает новое значение для ID
     int ID = 0;
 
-    @ColumnInfo (name = "Title")
+    @ColumnInfo(name = "Title")
     String title = "";
 
-    @ColumnInfo (name = "Notes")
+    @ColumnInfo(name = "Notes")
     String note = "";
 
-    @ColumnInfo (name = "Date")
+    @ColumnInfo(name = "Date")
     String date = "";
 
-    @ColumnInfo (name = "Pinned") //позволит закреплять заметки
+    @ColumnInfo(name = "Pinned") //позволит закреплять заметки
     Boolean pinned = false;
 
 

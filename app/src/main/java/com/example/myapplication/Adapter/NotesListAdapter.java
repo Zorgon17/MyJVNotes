@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
+public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
 
     Context context;
     List<Notes> list;
@@ -53,14 +53,13 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
         holder.textView_date.setText(list.get(position).getDate());
         holder.textView_date.setSelected(true);
 
-        if (list.get(position).getPinned()){
+        if (list.get(position).getPinned()) {
             holder.imageView_pin.setImageResource(R.drawable.pin);
-        }
-        else{
+        } else {
             holder.imageView_pin.setImageResource(0);
         }
         int color_code = getRandomColor();
-        holder.notes_container.setCardBackgroundColor(holder.itemView.getResources().getColor(color_code,null));
+        holder.notes_container.setCardBackgroundColor(holder.itemView.getResources().getColor(color_code, null));
 
         holder.notes_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,29 +70,24 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
         holder.notes_container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                listener.onLongClick(list.get(holder.getAdapterPosition()),holder.notes_container);
+                listener.onLongClick(list.get(holder.getAdapterPosition()), holder.notes_container);
                 return true;
             }
         });
     }
 
 
-
     //
-    private int getRandomColor(){  //необходимо найти как создать массив из xml файла и добавить его сюда или другой способ выбрать рандомный цвет из colors.xml
+    private int getRandomColor() {  //необходимо найти как создать массив из xml файла и добавить его сюда или другой способ выбрать рандомный цвет из colors.xml
         List<Integer> colorCode = new ArrayList<>();
-        colorCode.add(R.color.LemonChiffon);
-        colorCode.add(R.color.LightPink);
-        colorCode.add(R.color.PapayaWhip);
-        colorCode.add(R.color.OldLace);
+
+        colorCode.add(R.color.Block3);
 
         Random random = new Random();
         int random_color = random.nextInt(colorCode.size());
         return colorCode.get(random_color);
     }
 
-
-    //
     @Override
     public int getItemCount() {
         return list.size();

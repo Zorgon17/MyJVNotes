@@ -21,14 +21,15 @@ public interface DAO {
     @Query("SELECT * FROM notes ORDER BY id DESC")
     List<Notes> getAll();
 
-    @Query("UPDATE notes SET Title =:Title, Notes=:Notes WHERE ID =:ID") // поможет изменять Title и Notes
-    void update (int ID, String Title, String Notes);
+    @Query("UPDATE notes SET Title =:Title, Notes=:Notes WHERE ID =:ID")
+        // поможет изменять Title и Notes
+    void update(int ID, String Title, String Notes);
 
     @Delete
-    void delete (Notes notes);
+    void delete(Notes notes);
 
-    @Query("UPDATE notes SET Pinned =:pin WHERE ID =:ID")
-    void pin(int id, boolean b);
+    @Query("UPDATE notes SET Pinned =:pin WHERE ID =:id")
+    void pin(int id, boolean pin);
 }
 
 /* Использование классов Dao позволит вам абстрагировать взаимодействие с базой данных на более логичном уровне,

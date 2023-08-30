@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.Models.Notes;
+import com.example.myapplication.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,12 @@ public class NotesTakerActivity extends AppCompatActivity {
     Notes notes;
     boolean isOldNote = false;
 
+    @Override
+    public void onBackPressed() {
+        Intent intent2 = new Intent(this, MainActivity.class);
+        startActivity(intent2);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,6 @@ public class NotesTakerActivity extends AppCompatActivity {
 
         editText_title = findViewById(R.id.editText_title);
         editText_notes = findViewById(R.id.editText_notes);
-
         imageView_save = findViewById(R.id.imageView_save);
 
         notes = new Notes();
@@ -38,8 +44,8 @@ public class NotesTakerActivity extends AppCompatActivity {
             notes = (Notes) getIntent().getSerializableExtra("old_notes"); //(...) - каст
             editText_title.setText(notes.getTitle());
             editText_notes.setText(notes.getNote());
-            isOldNote = true;
-        }catch (Exception e){
+            isOldNote = true;// проверяем заметку на старость
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -47,25 +53,26 @@ public class NotesTakerActivity extends AppCompatActivity {
         imageView_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = editText_title.getText().toString();
-                String description = editText_notes.getText().toString();
 
-                if (description.isEmpty()){
+                String title = editText_title.getText().toString(); //получаем то, что в наиименовании заметки
+                String description = editText_notes.getText().toString(); //получаем то, что в теле заметки
+
+                if (description.isEmpty()) {
                     Toast.makeText(NotesTakerActivity.this, "please enter text", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+                SimpleDateFormat formater = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
                 Date date = new Date();
 
-                if(!isOldNote){
+                if (!isOldNote) {
                     notes = new Notes();
                 }
                 notes.setTitle(title);
                 notes.setNote(description);
-                notes.setDate(format.format(date));
+                notes.setDate(formater.format(date));
 
                 Intent intent = new Intent();
-                intent.putExtra("note", notes);
+                intent.putExtra("note", notes);//сохраняем данные при закрытии активити
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
