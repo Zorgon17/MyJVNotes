@@ -7,6 +7,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.myapplication.Models.Checkboxes;
 import com.example.myapplication.Models.Notes;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @Dao
 public interface DAO {
 
-
+//для заметок
     @Insert(onConflict = REPLACE)
     void insert(Notes notes);
 
@@ -30,6 +31,20 @@ public interface DAO {
 
     @Query("UPDATE notes SET Pinned =:pin WHERE ID =:id")
     void pin(int id, boolean pin);
+
+
+    //для Задач (чекбоксов)
+    @Insert(onConflict = REPLACE)
+    void insertCheckbox(Checkboxes checkbox);
+
+    @Query("SELECT * FROM checkboxes ORDER BY ID DESC")
+    List<Checkboxes> getAllCheckboxes();
+
+    @Query("UPDATE checkboxes SET Text =:Text WHERE ID =:ID")
+    void updateCheckbox(int ID, String Text);
+
+    @Delete
+    void deleteCheckbox(Checkboxes checkbox);
 }
 
 /* Использование классов Dao позволит вам абстрагировать взаимодействие с базой данных на более логичном уровне,

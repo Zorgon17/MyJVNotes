@@ -6,9 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.myapplication.Models.Checkboxes;
 import com.example.myapplication.Models.Notes;
 
-@Database(entities = {Notes.class}, version = 1, exportSchema = false)
+@Database(entities = {Notes.class, Checkboxes.class}, version = 2, exportSchema = false)
 public abstract class RoomDB extends RoomDatabase {
 
     public abstract DAO dao();
