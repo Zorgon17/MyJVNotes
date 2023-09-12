@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:id="@+id/notes_container"
+    android:id="@+id/checkboxes_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,9 +14,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/textView_checkbox_text"
                 android:layout_width="match_parent"
@@ -31,6 +28,5 @@
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"/>
-        </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

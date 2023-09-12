@@ -35,7 +35,7 @@ public interface DAO {
 
     //для Задач (чекбоксов)
     @Insert(onConflict = REPLACE)
-    void insertCheckbox(Checkboxes checkbox);
+    void insertCheckbox(Checkboxes checkboxes);
 
     @Query("SELECT * FROM checkboxes ORDER BY ID DESC")
     List<Checkboxes> getAllCheckboxes();
@@ -44,7 +44,7 @@ public interface DAO {
     void updateCheckbox(int ID, String Text);
 
     @Delete
-    void deleteCheckbox(Checkboxes checkbox);
+    void deleteCheckbox(Checkboxes checkboxes);
 }
 
 /* Использование классов Dao позволит вам абстрагировать взаимодействие с базой данных на более логичном уровне,
