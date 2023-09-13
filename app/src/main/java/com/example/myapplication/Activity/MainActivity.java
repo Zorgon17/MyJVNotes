@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) { // TODO: исправить выход из приложения
+            return;
+        }
 
         if (requestCode == 101) {
             if (resultCode == Activity.RESULT_OK) ;
