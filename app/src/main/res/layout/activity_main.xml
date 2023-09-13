@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.MainActivity"
-    android:background="@color/Background">
+    android:background="@color/LemonChiffon">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resycler_home"
@@ -20,12 +20,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
-        android:backgroundTint="@color/Button"
-        android:layout_margin="26dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:contentDescription="TODO"
-        android:src = "@drawable/ic_plus_icon"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="26dp"
+        android:backgroundTint="@color/Khaki"
+        android:contentDescription="@string/button_add_note"
+        android:src="@drawable/ic_plus_icon" />
 </RelativeLayout>

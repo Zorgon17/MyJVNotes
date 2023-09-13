@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Zametki</string>
+    <string name="button_add_note">добавить заметку</string>
 </resources>

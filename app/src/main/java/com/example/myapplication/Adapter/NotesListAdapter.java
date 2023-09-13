@@ -1,6 +1,8 @@
 package com.example.myapplication.Adapter;
 
 import android.content.Context;
+import android.content.res.XmlResourceParser;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,9 @@ import com.example.myapplication.Models.Notes;
 import com.example.myapplication.Models.NotesClickListener;
 import com.example.myapplication.R;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,12 +30,20 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
     List<Notes> list;
     NotesClickListener listener;
 
+    private List<Integer> colors;
+
     public NotesListAdapter(Context context, List<Notes> list, NotesClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
-    }
 
+        try {
+            this.colors = getAllMaterialColors();
+        } catch (Exception e) {
+            this.colors = new ArrayList<>();
+            this.colors.add(R.color.Block3);
+        }
+    }
 
     //
     @NonNull
@@ -59,7 +72,8 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
             holder.imageView_pin.setImageResource(0);
         }
         int color_code = getRandomColor();
-        holder.notes_container.setCardBackgroundColor(holder.itemView.getResources().getColor(color_code, null));
+        //holder.notes_container.setCardBackgroundColor(holder.itemView.getResources().getColor(color_code, null));
+        holder.notes_container.setCardBackgroundColor(color_code);
 
         holder.notes_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,16 +92,27 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
 
 
     //
-    private int getRandomColor() {  //необходимо найти как создать массив из xml файла и добавить его сюда или другой способ выбрать рандомный цвет из colors.xml
-        List<Integer> colorCode = new ArrayList<>();
-
-        colorCode.add(R.color.Block3);
+    private int getRandomColor() {
+        // необходимо найти как создать массив из xml файла и добавить его сюда или
+        // другой способ выбрать рандомный цвет из colors.xml
 
         Random random = new Random();
-        int random_color = random.nextInt(colorCode.size());
-        return colorCode.get(random_color);
+        int random_color = random.nextInt(colors.size());
+        return colors.get(random_color);
     }
 
+    private List<Integer> getAllMaterialColors() throws XmlPullParserException, IOException {
+        XmlResourceParser xrp = context.getResources().getXml(R.xml.colors);
+        List<Integer> allColors = new ArrayList<>();
+        while (xrp.next() != XmlResourceParser.END_DOCUMENT) {
+            String s = xrp.getName();
+            if ("color".equals(s)) {
+                String color = xrp.nextText();
+                allColors.add(Color.parseColor(color));
+            }
+        }
+        return allColors;
+    }
     @Override
     public int getItemCount() {
         return list.size();
