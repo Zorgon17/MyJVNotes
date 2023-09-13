@@ -29,7 +29,26 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
     Context context;
     List<Notes> list;
     NotesClickListener listener;
-
+    public static final int[] LIBERTY_COLORS = {
+            Color.rgb(207, 248, 246), Color.rgb(148, 212, 212), Color.rgb(136, 180, 187),
+            Color.rgb(118, 174, 175), Color.rgb(42, 109, 130)
+    };
+    public static final int[] JOYFUL_COLORS = {
+            Color.rgb(217, 80, 138), Color.rgb(254, 149, 7), Color.rgb(254, 247, 120),
+            Color.rgb(106, 167, 134), Color.rgb(53, 194, 209)
+    };
+    public static final int[] PASTEL_COLORS = {
+            Color.rgb(64, 89, 128), Color.rgb(149, 165, 124), Color.rgb(217, 184, 162),
+            Color.rgb(191, 134, 134), Color.rgb(179, 48, 80)
+    };
+    public static final int[] COLORFUL_COLORS = {
+            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
+            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
+    };
+    public static final int[] VORDIPLOM_COLORS = {
+            Color.rgb(192, 255, 140), Color.rgb(255, 247, 140), Color.rgb(255, 208, 140),
+            Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
+    };
     private List<Integer> colors;
 
     public NotesListAdapter(Context context, List<Notes> list, NotesClickListener listener) {
@@ -97,9 +116,10 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
         // другой способ выбрать рандомный цвет из colors.xml
 
         Random random = new Random();
-        int random_color = random.nextInt(colors.size());
-        return colors.get(random_color);
+        int random_color = random.nextInt(VORDIPLOM_COLORS.length);
+        return VORDIPLOM_COLORS[random_color];
     }
+
 
     private List<Integer> getAllMaterialColors() throws XmlPullParserException, IOException {
         XmlResourceParser xrp = context.getResources().getXml(R.xml.colors);
